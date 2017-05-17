@@ -1,0 +1,92 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template }- Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--<link href="http://materializecss.com/dist/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+  <link href="{% static 'css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+</head>
+
+<body>
+ 
+  
+        
+
+ <header>
+ 
+
+    <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <div class="col s5">
+        	<a href="#!" class="brand-logo"> <img src="{% static 'img/logo.png' %}" alt="Smiley face" height="50" width="50"> </a>
+        </div>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="">{{username}}</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <nav>
+      <div class="nav-wrapper indigo darken-2">
+        <a style="margin-left: 20px;" class="breadcrumb" href="/assistencia">Inici</a>
+         <a class="breadcrumb" href="/classes_llista">Assignar classe({{llico}})</a>
+
+        <div style="margin-right: 20px;" id="timestamp" class="right"></div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="row">
+      <div class="col s12">
+        <div style="padding: 35px;" align="center" class="card">
+          <label><h5>Seleciona el nom del grup/Classe on estas fent classe:</h5></label>
+          <form action="/llicoclasse" method="get">
+            <input type="hidden" name="id_llico" value="{{llico}}">
+            <select name="id_classe">
+              <option value="" disabled selected>Tria el nom de la classe</option>
+              {% for classes in classes %}
+              <option value="{{ classes.id_xml }}">{{ classes.id_xml }}</option>
+              {% endfor %}
+            </select>
+            <!--<input type="submit" value="Vote" />-->
+            <input type="submit" value="Enviar" class="waves-effect waves-light btn"></input>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="indigo page-footer">
+   <div class="container">
+       
+      </div>
+    
+  </footer>
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script type="text/javascript">
+    
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+    
+  </script>
+
+
+</html>

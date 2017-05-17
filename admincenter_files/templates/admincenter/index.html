@@ -1,0 +1,29 @@
+
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{title}}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+<div class="modal-dialog" style="margin-top: 1%">
+	<div class="loginmodal-container">
+		<h1>Consulta Notes</h1><br>
+		<img style="margin-left: 15%; margin-bottom: 5%;" src="{% static 'img/logo2.jpg' %}">
+		<form action="check" method="get">
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="password" placeholder="Password">
+			<input type="submit" class="login loginmodal-submit" value="Login">
+		</form>
+					
+		<div class="login-help">
+			<a href="#">Has oblidat la contrasenya</a>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
