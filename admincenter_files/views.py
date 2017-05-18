@@ -99,15 +99,44 @@ def quies(request):
         Usuari_list = User.objects.filter(username=username)
         perfil = Perfil.objects.filter(usuario_id=Usuari.id)
 
-        """con = ldap.initialize('ldap://10.27.100.151:389')
+        con = ldap.initialize('ldap://127.0.0.1:389')
+        #con = ldap.initialize('ldap://10.27.100.151:389')
         con.simple_bind_s("cn=admin,dc=ester,dc=cat", "P@ssw0rd")
         ldap_base = "dc=ester,dc=cat"
-        query = "(uid=17179975057)"
+        query = "(uid="+username+")"
         result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
-        print(result)"""
+        perfilusuari = Perfil.objects.filter(usuario_id=Usuari.id).get()
+
+        #print(result)
+        #print(result.seeAlso)
+        #print(result['seeAlso'])
+
+        for l in result:
+            print(l[0])
+            s = l[0]
+            print("ou=Professors,ou=Users,dc=ester,dc=cat" in s)
+
+
+            if "ou=Professors,ou=Users,dc=ester,dc=cat" in s:
+                if perfilusuari.nomprofeshorari != "":
+                    return redirect('/assistencia')
+                else:
+                    return redirect('/nomprofessors')
+            else:
+                return redirect('/notes')
+                
+
+
+
+
+            """if s.find("ou=Professors,ou=Users,dc=ester,dc=cat") == -1:
+                print("Profe!")
+            else:
+                print("Nom profe.")"""
+            
 
         """term = request.GET.get('term') # term => text sent from the page
-        user_list = []
+        user_list = []uidNumber
         user_list = LDAPBackend().search(term) # search does not exist. I need to populate this array with all users that match the captured term.
         print(json.dumps(user_list))
         
@@ -217,32 +246,46 @@ def llista_teves_classes(request):
 
         hm = int(float(hm))
         hm = int(float(hm))
-        print(hm)
+        #print(hm)
         #print(s)
 
-        print(diasetmana())
+        #print(diasetmana())
 
         username = request.session['username']
         Usuari = User.objects.filter(username=username).get()
         perfilusuari = Perfil.objects.filter(usuario_id=Usuari.id).get()
         llicoprofesors = Llico.objects.filter(lesson_teacher=perfilusuari.nomprofeshorari, assigned_day=diasetmana())
         #classesdia = llicoprofesors
+        array = []
+        num = 0
         for i in llicoprofesors:
-            print(i)
+            #print(i)
             try:
                 classes = Classe.objects.order_by('id')
                 lliconom = Llico_classe.objects.filter(id_llico=i)
-               # print(lliconom)
-                for i in lliconom:
-                    print(i)
+                
+                print("\n\n")
+                #print(lliconom)
+
+                if not lliconom:
+                    template = loader.get_template('admincenter/llicoassignar.php')
+                    context = {
+                        'username': username,
+                        'title': "Passar llista en el teu horari",
+                        'classes': classes,
+                        'nomclasse': "Error / Hora d'esbarjo",
+                        'llico': i,
+                    }
+                    return HttpResponse(template.render(context, request))
+                else:
+                    for t in lliconom:
+                        print(t.id_classe)
+                        print(t.id_llico)
+                        array.extend([t.id_classe])
+                        num = num +1
 
 
-                if "" in lliconom:
-                    print("hola")
 
-                #classenom = lliconom.id_classe[3:len(lliconom.id_classe)]
-                #alunesclasse = Alumne.objects.filter(nom=classenom)
-                #print(lliconom.id_classe[3:len(lliconom.id_classe)])
             except:
                 template = loader.get_template('admincenter/llicoassignar.php')
                 context = {
@@ -255,10 +298,12 @@ def llista_teves_classes(request):
                 return HttpResponse(template.render(context, request))
         
 
+        print(array[0])
+        print(array)
         template = loader.get_template('admincenter/classes_llista.html')
         context = {
             'username': username,
-            'classes': lliconom,
+            'classes': array,
         }
         return HttpResponse(template.render(context, request))
         
@@ -291,22 +336,38 @@ def llicoclasse(request):
 
     Llico_classe.objects.create(id_llico=request.GET['id_llico'], id_classe=request.GET['id_classe'], room="prova")
 
-    return redirect('/passar_llista')
+    return redirect('/assistencia')
+
+def guardarassistencia(request):
+
+    h = time.strftime("%H:%M:%S")
+    data = time.strftime("%d/%m/%y")
+
+
+
+    username = request.session['username']
+    Usuari = User.objects.filter(username=username).get()
+    #print(hora)
+
+    Assistencia.objects.create(professor=username, id_alumne=request.GET['id_alumne'], llico=request.GET['nomllico'], valor=request.GET['assistencia'], dia=data, hora=h)
+
+    return redirect('/assistencia')
 
 
 def passar_llista(request):
     if request.session.has_key('username'):
 
+        arrayalumnes = []
         hora = time.strftime("%I:%M:%S")
         hm = float(time.strftime("%H%M"))
         data = time.strftime("%d/%m/%y")
 
         hm = int(float(hm))
         hm = int(float(hm))
-        print(hm)
+        #print(hm)
         #print(s)
 
-        print(diasetmana())
+        #print(diasetmana())
 
         username = request.session['username']
         Usuari = User.objects.filter(username=username).get()
@@ -314,18 +375,61 @@ def passar_llista(request):
         llicoprofesors = Llico.objects.filter(lesson_teacher=perfilusuari.nomprofeshorari, assigned_starttime__lte=hm, assigned_endtime__gte=hm, assigned_day=diasetmana()).get()
         assig = Assignatura.objects.filter(id_xml=llicoprofesors.lesson_subject).get()
         try:
-            print("llicoprofesors.lesson_subject")
-            print(hm)
-            print(llicoprofesors.id_xml)
+            #print("llicoprofesors.lesson_subject")
+            #print(hm)
+            #print(llicoprofesors.id_xml)
             classes = Classe.objects.order_by('id')
             lliconom = Llico_classe.objects.filter(id_llico=llicoprofesors.id_xml).get()
 
             classenom = lliconom.id_classe[3:len(lliconom.id_classe)]
             alunesclasse = Alumne.objects.filter(nom=classenom)
-            print(lliconom.id_llico)
-            print(lliconom.id_classe[3:len(lliconom.id_classe)])
-            print(lliconom.room)
-            print(assig.nom)
+
+
+
+
+
+            con = ldap.initialize('ldap://127.0.0.1:389')
+            #con = ldap.initialize('ldap://10.27.100.151:389')
+            con.simple_bind_s("cn=admin,dc=ester,dc=cat", "P@ssw0rd")
+            ldap_base = "dc=ester,dc=cat"
+            query = "(cn="+classenom+")"
+            result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+            #print(result)
+
+            for r in result:
+                #print(r[1]["member"])
+                print("\n\n\n\n\n\n\n")
+
+                uid = r[1]["member"]
+                #print(uid)
+                for o in uid:
+                    #print(o)
+                    #o = o[4:15]
+                    o = o[4:14]
+                    #print(o)
+                    con = ldap.initialize('ldap://127.0.0.1:389')
+                    #con = ldap.initialize('ldap://10.27.100.151:389')
+                    con.simple_bind_s("cn=admin,dc=ester,dc=cat", "P@ssw0rd")
+                    ldap_base = "dc=ester,dc=cat"
+                    query = "(uidNumber="+o+")"
+                    resultnom = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+                    #print(resultnom)
+                    for q in resultnom:
+                        #print(q[1]["cn"])
+                        q = q[1]["cn"]
+                        #print(q[0])
+                        q = q[0]
+
+                        arrayalumnes.extend([[q, o]])
+                
+
+
+
+
+            #print(lliconom.id_llico)
+            #print(lliconom.id_classe[3:len(lliconom.id_classe)])
+            #print(lliconom.room)
+            #print(assig.nom)
         except:
             template = loader.get_template('admincenter/llicoassignar.php')
             context = {
@@ -337,12 +441,14 @@ def passar_llista(request):
             }
             return HttpResponse(template.render(context, request))
 
+        print(arrayalumnes)
         template = loader.get_template('admincenter/passarllista.html')
         context = {
             'username': username,
             'title': "Passar llista en el teu horari",
-            'alunesclasse': alunesclasse,
+            'alunesclasse': arrayalumnes,
             'nomclasse': assig.nom,
+            'llico': llicoprofesors.id_xml,
         }
         return HttpResponse(template.render(context, request))
         

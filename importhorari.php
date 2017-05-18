@@ -1,8 +1,10 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "00051094-Aa";
+$servername = "127.0.0.1";
+$username = "django";
+$password = "django";
+//$username = "root";
+//$password = "00051094-Aa";
 $dbname = "django";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,7 +19,7 @@ $xmlsaga = simplexml_load_file("dades-saga.xml");
 //$cursos = array();
 $num = 0;
 
-/*foreach($xml->{'teachers'}->{'teacher'} as $profe){
+foreach($xml->{'teachers'}->{'teacher'} as $profe){
     $id_profe = strval($profe['id']);
     
     $num++;
@@ -193,7 +195,7 @@ foreach($xml->{'timeperiods'}->{'timeperiod'} as $timeperiod){
         echo "\n\n\n\n\n";
     }
 
-}*/
+}
 
 foreach($xmlsaga->{'grups'}->{'grup'} as $grup){
 

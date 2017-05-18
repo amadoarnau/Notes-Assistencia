@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'admincenter.wsgi.application'
 }
 """
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
@@ -98,9 +98,9 @@ DATABASES = {
         'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
-}"""
+}
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'django',
@@ -110,7 +110,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -167,13 +167,17 @@ logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
 # Baseline configuration.
-AUTH_LDAP_SERVER_URI = "ldap://10.27.100.151:389"
+#AUTH_LDAP_SERVER_URI = "ldap://10.27.100.151:389"
+AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1:389"
 
 AUTH_LDAP_BIND_DN = "cn=admin,dc=ester,dc=cat"
 AUTH_LDAP_BIND_PASSWORD = "P@ssw0rd"
 
 AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=ester,dc=cat",
-    ldap.SCOPE_SUBTREE, "(cn=%(user)s)")
+    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+
+#AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=ester,dc=cat",
+#    ldap.SCOPE_SUBTREE, "(cn=%(user)s)")
 # or perhaps:
 # AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=example,dc=com"
 
@@ -199,8 +203,10 @@ AUTH_LDAP_PROFILE_ATTR_MAP = {
 }
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=staff,dc=ester,dc=cat",
-    "is_staff": "cn=Profesors,dc=ester,dc=cat"
+    #"is_active": "ou=users,dc=ester,dc=cat",
+    "is_active": "cn=Django,ou=Groups,dc=ester,dc=cat",
+    #"is_staff": "cn=Djdango,ou=Groups,dc=ester,dc=cat",
+    #"is_staff": "cn=Profesors,dc=ester,dc=cat"
     #"is_superuser": "cn=staff,dc=ester,dc=cat"
 }
 

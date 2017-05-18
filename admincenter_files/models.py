@@ -122,10 +122,12 @@ class Fitxatge(models.Model):
         return self.id_tarjeta
 
 class Assistencia(models.Model):
+    professor = models.CharField(max_length=200)
     id_alumne = models.CharField(max_length=200)
     dia = models.CharField(max_length=200)
     hora = models.CharField(max_length=200)
     llico = models.CharField(max_length=200) 
+    valor = models.CharField(max_length=200) 
     def __str__(self):
         return self.llico
 

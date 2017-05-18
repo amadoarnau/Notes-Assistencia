@@ -58,24 +58,27 @@
         <thead>
           <tr>
               <th>Nom</th>
-              <th>Nom</th>
-              <th>Cognom</th>
-              <th>Esta</th>
-              <th>Arriba tard</th>
-              <th>Falta</th>
+              <th></th>
           </tr>
         </thead>
 
         <tbody>
           {% for alunesclasse in alunesclasse %}
+            <form action="/guardarassistencia/" method="get">
             <tr>
-              <td>{{ alunesclasse.id_alumne }}</td>
-              <td>{{ alunesclasse.nomalumne }}</td>
-              <td>{{ alunesclasse.cognom }}</td>
-              <td><a href="/passar_llista/{{ classes.id }}" class="waves-effect waves-light btn">Esta</a></td>
-              <td><a href="/passar_llista/{{ classes.id }}" class="waves-effect waves-light btn">Arriba tard</a></td>
-              <td><a href="/classes_llista/{{ classes.id }}" class="waves-effect waves-light btn">Falta</a></td>
+              <td>{{ alunesclasse.0 }}</td>
+              <input type="hidden" name="id_alumne" value="{{alunesclasse.1}}">
+              <input type="hidden" name="nomllico" value="{{llico}}">
+              <td><select class="browser-default" name="assistencia">
+                <option value="1">Si que està</option>
+                <option value="2">Arriba tard</option>
+                <option value="3">No hi es</option>
+              </select></td>
+              <td>
+              <input type="submit" value="Enviar" ></input>
+              <input type="submit" name="Enviar" class="waves-effect waves-light btn"></td>
           </tr>
+          </form>
           {% endfor %}
 
             
@@ -100,5 +103,16 @@
     
   </footer>
 </body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script type="text/javascript">
+    
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+    
+  </script>
+
 
 </html>
+
