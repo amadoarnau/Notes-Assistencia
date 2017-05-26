@@ -1,6 +1,7 @@
 
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +20,6 @@
 </head>
 
 <body>
- 
-  
-        
 
  <header>
  
@@ -41,13 +39,14 @@
   </div>
   <nav>
       <div class="nav-wrapper indigo darken-2">
-        <a style="margin-left: 20px;" class="breadcrumb" href="/professors">Inici</a>
-         <a class="breadcrumb" href="">Llista de professors</a>
+        <a style="margin-left: 20px;" class="breadcrumb" href="/alumne">Inici</a>
+         <a class="breadcrumb" href="">Notes</a>
 
         <div style="margin-right: 20px;" id="timestamp" class="right"></div>
       </div>
     </nav>
   </header>
+  
 
   <main>
     <div class="row">
@@ -56,17 +55,21 @@
           <table>
         <thead>
           <tr>
-              <th>Nom</th>
-              <th></th>
+              <th>Modul</th>
+              <th>Nom Practica</th>
+              <th>Nota</th>
           </tr>
         </thead>
 
         <tbody>
-          {% for professor in professor %}
-          	<tr>
-          		<td>{{ professor.nom }}</td>
-          		<td><a href="/passar_llista/{{ professor.id }}" class="waves-effect waves-light btn">Llistar classes</a></td>
+          {% for notes in notes %}
+            <form action="/guardarassistencia/" method="get">
+            <tr>
+              <td>{{ notes.0 }}</td>
+              <td>{{ notes.1 }}</td>
+              <td>{{ notes.2 }}</td>
           </tr>
+          </form>
           {% endfor %}
 
             
@@ -83,7 +86,6 @@
 
     
   </main>
-
   <footer class="indigo page-footer">
    <div class="container">
        
@@ -91,5 +93,16 @@
     
   </footer>
 </body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script type="text/javascript">
+    
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+    
+  </script>
+
 
 </html>

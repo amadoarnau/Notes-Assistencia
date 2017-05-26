@@ -42,7 +42,7 @@
   <nav>
       <div class="nav-wrapper indigo darken-2">
         <a style="margin-left: 20px;" class="breadcrumb" href="/professors">Inici</a>
-         <a class="breadcrumb" href="">Llista de professors</a>
+         <a class="breadcrumb" href="">Llista de classes</a>
 
         <div style="margin-right: 20px;" id="timestamp" class="right"></div>
       </div>
@@ -62,10 +62,10 @@
         </thead>
 
         <tbody>
-          {% for professor in professor %}
+          {% for classes in classes %}
           	<tr>
-          		<td>{{ professor.nom }}</td>
-          		<td><a href="/passar_llista/{{ professor.id }}" class="waves-effect waves-light btn">Llistar classes</a></td>
+              <td>{{ classes }}</td>
+          		<td><a href="/llista_alumnes/{{ classes }}" class="waves-effect waves-light btn">Llistar alumnes</a></td>
           </tr>
           {% endfor %}
 

@@ -88,7 +88,8 @@ WSGI_APPLICATION = 'admincenter.wsgi.application'
 }
 """
 
-
+"""
+#dintre insti
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
@@ -99,8 +100,22 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+"""
+"""
+#fora insti
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
-"""DATABASES = {
+"""
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'django',
@@ -110,7 +125,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -167,8 +182,9 @@ logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
 # Baseline configuration.
-#AUTH_LDAP_SERVER_URI = "ldap://10.27.100.151:389"
-AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1:389"
+AUTH_LDAP_SERVER_URI = "ldap://10.27.100.151:389"
+#AUTH_LDAP_SERVER_URI = "ldap://127.0.0.1:389" #dintre insti
+#AUTH_LDAP_SERVER_URI = "ldap://etldap.duhowpi.net:389" #fora insti
 
 AUTH_LDAP_BIND_DN = "cn=admin,dc=ester,dc=cat"
 AUTH_LDAP_BIND_PASSWORD = "P@ssw0rd"

@@ -6,7 +6,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template }- Materialize</title>
+  <title>{{title}}</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,7 +41,7 @@
   </div>
   <nav>
       <div class="nav-wrapper indigo darken-2">
-        <a style="margin-left: 20px;" class="breadcrumb" href="/assistencia">Inici</a>
+        <a style="margin-left: 20px;" class="breadcrumb" href="/professors">Inici</a>
          <a class="breadcrumb" href="">Llista de classes</a>
 
         <div style="margin-right: 20px;" id="timestamp" class="right"></div>
@@ -57,6 +57,7 @@
         <thead>
           <tr>
               <th>Nom</th>
+              <th>Modul</th>
               <th></th>
           </tr>
         </thead>
@@ -64,8 +65,9 @@
         <tbody>
           {% for classe in classes %}
           	<tr>
-              <td>{{ classe }}</td>
-          		<td><a href="/passar_llista/{{ classes.id }}" class="waves-effect waves-light btn">Pasar llista</a></td>
+              <td>{{ classe.0 }}</td>
+              <td>{{ classe.2 }}</td>
+          		<td><a href="/passar_llista_classe/{{ classe.1 }}" class="waves-effect waves-light btn">Pasar llista</a></td>
           </tr>
           {% endfor %}
 

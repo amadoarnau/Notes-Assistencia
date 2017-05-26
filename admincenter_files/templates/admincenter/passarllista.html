@@ -41,9 +41,9 @@
   </div>
   <nav>
       <div class="nav-wrapper indigo darken-2">
-        <a style="margin-left: 20px;" class="breadcrumb" href="/assistencia">Inici</a>
+        <a style="margin-left: 20px;" class="breadcrumb" href="/professors">Inici</a>
          <a class="breadcrumb" href="/classes_llista">Passar llista</a>
-         <a class="breadcrumb" href="/classes_llista">{{nomclasse}}</a>
+         <a class="breadcrumb" href="">{{nomclasse}}</a>
 
         <div style="margin-right: 20px;" id="timestamp" class="right"></div>
       </div>
@@ -57,7 +57,8 @@
           <table>
         <thead>
           <tr>
-              <th>Nom</th>
+              <th>{{text}}</th>
+              <th>Fitxat al entrar</th>
               <th></th>
           </tr>
         </thead>
@@ -67,16 +68,18 @@
             <form action="/guardarassistencia/" method="get">
             <tr>
               <td>{{ alunesclasse.0 }}</td>
+              <td>{{ alunesclasse.2 }}</td>
               <input type="hidden" name="id_alumne" value="{{alunesclasse.1}}">
               <input type="hidden" name="nomllico" value="{{llico}}">
               <td><select class="browser-default" name="assistencia">
-                <option value="1">Si que està</option>
+                <option value="0" disabled="true" selected="true"></option>
+                <option value="1">Si que esta</option>
                 <option value="2">Arriba tard</option>
                 <option value="3">No hi es</option>
               </select></td>
               <td>
-              <input type="submit" value="Enviar" ></input>
-              <input type="submit" name="Enviar" class="waves-effect waves-light btn"></td>
+              <!--<input type="submit" value="Enviar" class="waves-effect waves-light btn"></input>-->
+              <input type="submit" value="Enviar"  name=""></td>
           </tr>
           </form>
           {% endfor %}

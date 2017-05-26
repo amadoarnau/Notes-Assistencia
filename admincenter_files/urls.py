@@ -21,9 +21,17 @@ urlpatterns = [
     url(r'^professors_llista_assistencia/$', views.professors_llista_assistencia, name='professors_llista_assistencia'),
     url(r'^alumnes_llista_assistencia/$', views.alumnes_llista_assistencia, name='alumnes_llista_assistencia'),
     url(r'^classes_llista/$', views.classes_llista, name='classes_llista'),
-    url(r'^assistencia/$', views.assistencia, name='assistencia'),
+    url(r'^classes_llista_guardia/$', views.classes_llista_guardia, name='classes_llista_guardia'),
+    url(r'^professors/$', views.professors, name='professors'),
     #url(r'^check/$', 'check', name='check'),
     # ex: /5/vote/
     url(r'^passar_llista/(?P<id_classe_passar_llista>[0-9]+)/$', views.passar_llista_classe, name='vote'),
+    url(r'^passar_llista_classe/(?P<id_classe_passar_llista>\d+)/$', views.passar_llista_classe, name='vote'),
+    url(r'^passar_llista_classe_guardia/(?P<nom_classe>\w+)/$', views.passar_llista_classe_guardia, name=''),
+    url(r'^llista_alumnes/(?P<nom_classe>\w+)/$', views.llista_alumnes, name=''),
     #url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    url(r'^alumne/$', views.alumne, name='home'),
+    url(r'^notes/$', views.notes, name='notes'),
+    url(r'^faltes/$', views.faltes, name='faltes'),
+
 ]

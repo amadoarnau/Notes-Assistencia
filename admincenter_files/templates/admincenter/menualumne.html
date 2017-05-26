@@ -33,7 +33,7 @@
         	<a href="#!" class="brand-logo"> <img src="{% static 'img/logo.png' %}" alt="Smiley face" height="50" width="50"> </a>
         </div>
         <ul class="right hide-on-med-and-down">
-          <li><a href="">{{username}}</a></li>
+          <li><a href="/perfil">{{username}}</a></li>
           <li><a href="/logout">Logout</a></li>
         </ul>
       </div>
@@ -41,8 +41,8 @@
   </div>
   <nav>
       <div class="nav-wrapper indigo darken-2">
-        <a style="margin-left: 20px;" class="breadcrumb" href="/professors">Inici</a>
-         <a class="breadcrumb" href="">Llista de professors</a>
+        <a style="margin-left: 20px;" class="breadcrumb" href="#!">Inici</a>
+        <!-- <a class="breadcrumb" href="#!">Index</a> -->
 
         <div style="margin-right: 20px;" id="timestamp" class="right"></div>
       </div>
@@ -51,31 +51,51 @@
 
   <main>
     <div class="row">
-      <div class="col s12">
-        <div style="padding: 35px;" align="center" class="card">
-          <table>
-        <thead>
-          <tr>
-              <th>Nom</th>
-              <th></th>
-          </tr>
-        </thead>
+      
 
-        <tbody>
-          {% for professor in professor %}
-          	<tr>
-          		<td>{{ professor.nom }}</td>
-          		<td><a href="/passar_llista/{{ professor.id }}" class="waves-effect waves-light btn">Llistar classes</a></td>
-          </tr>
-          {% endfor %}
+      <div class="col s3">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Notes</b>
+            </div>
+          </div>
+          <div class="row">
+            <a href="/notes">
+              <div style="padding: 30px;" class="grey lighten-3 col s11 waves-effect">
+                <i class="fa fa-list fa-5x"></i>
+                <span class="indigo-text text-lighten-1"><h5>Visualitzar</h5></span>
+              </div>
+            </a>
 
             
-        </tbody>
-      </table>
+          </div>
         </div>
       </div>
 
-     
+      <div class="col s3">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Assistencia</b>
+            </div>
+          </div>
+          <div class="row">
+            <a href="/faltes">
+              <div style="padding: 30px;" class="grey lighten-3 col s11 waves-effect">
+                <i class="fa fa-graduation-cap fa-5x"></i>
+                <span class="indigo-text text-lighten-1"><h5>Veure faltes</h5></span>
+              </div>
+            </a>
+
+            
+          </div>
+        </div>
+      </div>
+      
+
+
+    </div>
 
     
 
