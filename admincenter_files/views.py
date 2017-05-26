@@ -405,6 +405,13 @@ def classes_llista(request):
 
 
             except:
+                arrayclasses = []
+                for b in classes:
+                    #print(b.id_xml)
+                    text = b.id_xml
+                    text = text[3:len(text)]
+                    print(text)
+                    arrayclasses.extend([[text]])
                 template = loader.get_template('admincenter/llicoassignar.html')
                 context = {
                     'username': username,
@@ -558,7 +565,14 @@ def llista_teves_classes(request):
                 print(i.lesson_subject)
 
                 if not lliconom:
-                    template = loader.get_template('admincenter/llicoassignar.html')
+                    arrayclasses = []
+                for b in classes:
+                    #print(b.id_xml)
+                    text = b.id_xml
+                    text = text[3:len(text)]
+                    print(text)
+                    arrayclasses.extend([[text]])
+                template = loader.get_template('admincenter/llicoassignar.html')
                     context = {
                         'username': username,
                         'title': "Assignar un classe a un horari",
@@ -583,6 +597,13 @@ def llista_teves_classes(request):
 
 
             except:
+                arrayclasses = []
+                for b in classes:
+                    #print(b.id_xml)
+                    text = b.id_xml
+                    text = text[3:len(text)]
+                    print(text)
+                    arrayclasses.extend([[text]])
                 template = loader.get_template('admincenter/llicoassignar.html')
                 context = {
                     'username': username,
